@@ -69,3 +69,75 @@ console.log(`Boolean(): ${toBoolean1} (тип: ${typeof toBoolean1})`);
 
 let toBoolean2 = !!stringPi;
 console.log(`Подвійний знак заперечення: ${toBoolean2} (тип: ${typeof toBoolean2})`);
+
+
+// Task 1:
+for (let i = 1; i <= 100; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+        console.log('ЛолКек');
+    } else if (i % 5 === 0) {
+        console.log('Кек');
+    } else if (i % 3 === 0) {
+        console.log('Лол');
+    } else {
+        console.log(i);
+    }
+}
+
+// Task 2: (variant of for)
+function getEvenNumbersFor (value) {
+    if (typeof value !== 'number') {
+        console.log('Таке чуство шо Бог десь наказує нас за шось');
+        return;
+    }
+
+    for (let i = 0; i <= value; i += 2) {
+        console.log(i)
+    }
+}
+getEvenNumbersFor('123');
+
+function getEvenNumbersForTwo (value) {
+    if (typeof value !== 'number') {
+        console.log('Таке чуство шо Бог десь наказує нас за шось');
+        return;
+    }
+
+    for (let i = 0; i <= value; i++) {
+        if (i % 2 === 0) {
+            console.log(i)
+        }
+    }
+}
+getEvenNumbersForTwo(20);
+
+// Task 2: (variant of while)
+function getEvenNumbersWhile (value) {
+    if (typeof value !== 'number') {
+        console.log('Таке чуство шо Бог десь наказує нас за шось');
+        return;
+    }
+
+    let i = 0;
+    while (i < value) {
+        console.log(i)
+        i += 2;
+    }
+}
+getEvenNumbersWhile(40);
+
+function getEvenNumbersWhileTwo (value) {
+    if (typeof value !== 'number') {
+        console.log('Таке чуство шо Бог десь наказує нас за шось');
+        return;
+    }
+
+    let i = 0;
+    while (i < value) {
+        if (i % 2 === 0) {
+            console.log(i);
+        }
+        i++;
+    }
+}
+getEvenNumbersWhileTwo('sdadsa');
