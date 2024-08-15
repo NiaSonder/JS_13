@@ -180,26 +180,22 @@ console.log(iterativeOddSumTo(10)) // 25
 
 // 1. Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
 const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
-let initials;
 
-userNames.map(name => {
+const initials = userNames.map(name => {
     const parts = name.split(' ');
-
     return parts.map(part => part[0]).join('.') + '.';
-}).sort()
-initials = userNames;
+}).sort();
 
 console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
 
 // 2. Задача на фільтрування масиву
 const userNamesTwo = ['Петро', 'Емма', 'Юстин', 'Ілля', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
-let filteredNames = [];
-
 const validFirstLetters = ['Е', 'Ю', 'І', 'Я', 'А', 'О'];
 
 // через умовну конструкцію
+const filteredNames = [];
 for (let i = 0; i < userNamesTwo.length; i++) {
-    const name = userNamesTwo[i]
+    const name = userNamesTwo[i];
     if (validFirstLetters.indexOf(name[0]) !== -1) {
         filteredNames.push(name);
     }
@@ -207,7 +203,7 @@ for (let i = 0; i < userNamesTwo.length; i++) {
 console.log(filteredNames); // ['Емма', 'Юстин', 'Ілля', 'Яна', 'Антон', 'Олена']
 
 // через вбудований метод масивів
-let filteredNamesTwo = userNamesTwo.filter(name => {
+const filteredNamesTwo = userNamesTwo.filter(name => {
     const firstLetter = name[0];
     return validFirstLetters.includes(firstLetter);
 });
@@ -216,11 +212,9 @@ console.log(filteredNamesTwo); // ['Емма', 'Юстин', 'Ілля', 'Яна
 
 // 3. Задача на розворот числа:
 const currentMaxValue = 4589;
-let reverseMaxValue;
-
-let stringValue = currentMaxValue.toString();
-let reversedStringValue = stringValue.split('').reverse().join('');
-reverseMaxValue = parseInt(reversedStringValue);
+const stringValue = currentMaxValue.toString();
+const reversedStringValue = stringValue.split('').reverse().join('');
+const reverseMaxValue = parseInt(reversedStringValue);
 
 console.log(reverseMaxValue); // 9854
 console.log(typeof reverseMaxValue); // 'number'
@@ -242,6 +236,6 @@ function multiplyArrayElements(array) {
     return product;
 }
 
-let productOfArray = multiplyArrayElements(resultsArray);
+const productOfArray = multiplyArrayElements(resultsArray);
 
 console.log(productOfArray); // 24
