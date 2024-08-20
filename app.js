@@ -179,7 +179,7 @@ console.log(iterativeOddSumTo(10)) // 25
 // HW5
 // 1. Задача про обчислення різниці часу
 
-function durationBetweenDates(startDate, endDate, unit) {
+function durationBetweenDates(startDate = '01 Jan 2000', endDate = '01 Jan 2000', unit = 'days') {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const difference = Math.abs(end - start);
