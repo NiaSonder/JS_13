@@ -176,6 +176,71 @@ function iterativeOddSumTo(number) {
 console.log(iterativeOddSumTo(1)) // 1
 console.log(iterativeOddSumTo(10)) // 25
 
+// HW4
+
+// 1. Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
+const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
+
+const initials = userNames.map(name => {
+    const parts = name.split(' ');
+    return parts.map(part => part[0]).join('.') + '.';
+}).sort();
+
+console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
+
+// 2. Задача на фільтрування масиву
+const userNamesTwo = ['Петро', 'Емма', 'Юстин', 'Ілля', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
+const validFirstLetters = ['Е', 'Ю', 'І', 'Я', 'А', 'О'];
+
+// через умовну конструкцію
+const filteredNames = [];
+for (let i = 0; i < userNamesTwo.length; i++) {
+    const name = userNamesTwo[i];
+    if (validFirstLetters.indexOf(name[0]) !== -1) {
+        filteredNames.push(name);
+    }
+}
+console.log(filteredNames); // ['Емма', 'Юстин', 'Ілля', 'Яна', 'Антон', 'Олена']
+
+// через вбудований метод масивів
+const filteredNamesTwo = userNamesTwo.filter(name => {
+    const firstLetter = name[0];
+    return validFirstLetters.includes(firstLetter);
+});
+
+console.log(filteredNamesTwo); // ['Емма', 'Юстин', 'Ілля', 'Яна', 'Антон', 'Олена']
+
+// 3. Задача на розворот числа:
+const currentMaxValue = 4589;
+const stringValue = currentMaxValue.toString();
+const reversedStringValue = stringValue.split('').reverse().join('');
+const reverseMaxValue = parseInt(reversedStringValue);
+
+console.log(reverseMaxValue); // 9854
+console.log(typeof reverseMaxValue); // 'number'
+
+// 4. Задача на знаходження добутку масиву чисел з невідомою глибиною вкладеності:
+const resultsArray = [1, 2, [3, [4]]];
+
+function multiplyArrayElements(array) {
+    let product = 1;
+
+    for (let i = 0; i < array.length; i++) {
+        if (Array.isArray(array[i])) {
+            product *= multiplyArrayElements(array[i]);
+        } else {
+            product *= array[i];
+        }
+    }
+
+    return product;
+}
+
+const productOfArray = multiplyArrayElements(resultsArray);
+
+console.log(productOfArray); // 24
+
+
 // HW5
 // 1. Задача про обчислення різниці часу
 
