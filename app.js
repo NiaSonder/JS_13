@@ -239,3 +239,60 @@ function multiplyArrayElements(array) {
 const productOfArray = multiplyArrayElements(resultsArray);
 
 console.log(productOfArray); // 24
+
+
+// HW5
+// 1. Задача про обчислення різниці часу
+
+function durationBetweenDates(startDate = '01 Jan 2000', endDate = '01 Jan 2000', unit = 'days') {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const difference = Math.abs(end - start);
+
+    let result;
+    switch (unit) {
+        case 'days':
+            result = difference / (1000 * 60 * 60 * 24);
+            break;
+        case 'hours':
+            result = difference / (1000 * 60 * 60);
+            break;
+        case 'minutes':
+            result = difference / (1000 * 60);
+            break;
+        case 'seconds':
+            result = difference / 1000;
+            break;
+        default:
+            return 'Invalid unit';
+    }
+
+    return `${Math.floor(result)} ${unit}`;
+}
+console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds')) // поверне '86400 seconds'
+console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days')) // поверне '362 days'
+
+// 2. Задача про перетворення об'єкту
+
+// приклад об'єкту
+const priceData = {
+    Apples: '23.4',
+    BANANAS: '48',
+    oRAngGEs: '48.7584',
+};
+
+function optimizer(data) {
+    const optimizedData = {};
+
+    for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+            optimizedData[key.toLowerCase()] = parseFloat(data[key]).toFixed(2);
+        }
+    }
+
+    return optimizedData;
+}
+
+const updatedPriceData = optimizer(priceData);
+
+console.log(updatedPriceData) // {apples: '23.40', bananas: '48.00', oranges: '48.76'}
