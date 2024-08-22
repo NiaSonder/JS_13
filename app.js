@@ -296,3 +296,79 @@ function optimizer(data) {
 const updatedPriceData = optimizer(priceData);
 
 console.log(updatedPriceData) // {apples: '23.40', bananas: '48.00', oranges: '48.76'}
+
+// Просунута робота з функціями (1)
+
+// 1. Напишіть функцію addThemAll
+console.log('addThemAll',addThemAll(2,4)); // 6
+console.log('addThemAll',addThemAll(1,2,3,4)); // 10
+console.log('addThemAll',addThemAll(5,5,10)); // 20
+
+function addThemAll(...numbers) {
+    return numbers.reduce((acc, curr) => {
+        return acc + curr;
+    }, 0);
+}
+
+//  2. Задача на використання замикання.
+console.log('multiply',multiply(5)(5))		// 25
+console.log('multiply',multiply(2)(-2))	        // -4
+console.log('multiply',multiply(4)(3))		// 12
+
+function multiply(a) {
+    return function(b) {
+        return a * b;
+    }
+}
+
+// 3. Напишіть функцію яка буде використовуватись для сортування масиву фільмів
+const movies = [
+    {
+        movieName: 'The Thing',
+        releaseYear: 1982,
+        directedBy: 'Carpenter',
+        runningTimeInMinutes: 109,
+    },
+    {
+        movieName: 'Aliens',
+        releaseYear: 1986,
+        directedBy: 'Cameron',
+        runningTimeInMinutes: 137,
+    },
+    {
+        movieName: 'Men in Black',
+        releaseYear: 1997,
+        directedBy: 'Sonnenfeld',
+        runningTimeInMinutes: 98,
+    },
+    {
+        movieName: 'Predator',
+        releaseYear: 1987,
+        directedBy: 'McTiernan',
+        runningTimeInMinutes: 107,
+    },
+];
+
+function byProperty(property, direction) {
+    return function(a, b) {
+        if (direction === '>') {
+            return a[property] - b[property];
+        } else {
+            return b[property] - a[property];
+        }
+    };
+}
+
+console.log('виведе масив фільмів посортованих по року випуску, від старішого до новішого', movies.sort(byProperty('releaseYear', '>')));
+console.log('виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого',movies.sort(byProperty('runningTimeInMinutes', '<')));
+console.log('виведе масив фільмів посортованих по назві, в алфавітному порядку',movies.sort(byProperty('movieName', '>')));
+
+// 4. Напишіть функцію яка відфільтрує масив унікальних значень
+
+const userNames2 = ['Петро', 'Емма', 'Петро', 'Емма', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена', 'Емма'];
+
+function filterUnique(array) {
+    return [...new Set(array)];
+}
+
+console.log(filterUnique(userNames2)); // ['Петро', 'Емма', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
