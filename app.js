@@ -351,17 +351,23 @@ const movies = [
 
 function byProperty(property, direction) {
     return function(a, b) {
-        if (direction === '>') {
-            return a[property] - b[property];
+        let valueA = a[property];
+        let valueB = b[property];
+
+        let comparison;
+        if (typeof valueA === 'string' && typeof valueB === 'string') {
+            comparison = valueA.localeCompare(valueB);
         } else {
-            return b[property] - a[property];
+            comparison = valueA - valueB;
         }
+
+        return direction === '>' ? comparison : -comparison;
     };
 }
 
-console.log('виведе масив фільмів посортованих по року випуску, від старішого до новішого', movies.sort(byProperty('releaseYear', '>')));
-console.log('виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого',movies.sort(byProperty('runningTimeInMinutes', '<')));
-console.log('виведе масив фільмів посортованих по назві, в алфавітному порядку',movies.sort(byProperty('movieName', '>')));
+console.log('виведе масив фільмів посортованих по року випуску, від старішого до новішого', [...movies].sort(byProperty('releaseYear', '>')));
+console.log('виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого',[...movies].sort(byProperty('runningTimeInMinutes', '<')));
+console.log('виведе масив фільмів посортованих по назві, в алфавітному порядку',[...movies].sort(byProperty('movieName', '>')));
 
 // 4. Напишіть функцію яка відфільтрує масив унікальних значень
 
