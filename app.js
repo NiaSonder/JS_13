@@ -243,32 +243,32 @@ console.log(productOfArray); // 24
 
 // HW5
 // 1. Задача про обчислення різниці часу
-
-function durationBetweenDates(startDate = '01 Jan 2000', endDate = '01 Jan 2000', unit = 'days') {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const difference = Math.abs(end - start);
-
-    let result;
-    switch (unit) {
-        case 'days':
-            result = difference / (1000 * 60 * 60 * 24);
-            break;
-        case 'hours':
-            result = difference / (1000 * 60 * 60);
-            break;
-        case 'minutes':
-            result = difference / (1000 * 60);
-            break;
-        case 'seconds':
-            result = difference / 1000;
-            break;
-        default:
-            return 'Invalid unit';
-    }
-
-    return `${Math.floor(result)} ${unit}`;
-}
+//
+// function durationBetweenDates(startDate = '01 Jan 2000', endDate = '01 Jan 2000', unit = 'days') {
+//     const start = new Date(startDate);
+//     const end = new Date(endDate);
+//     const difference = Math.abs(end - start);
+//
+//     let result;
+//     switch (unit) {
+//         case 'days':
+//             result = difference / (1000 * 60 * 60 * 24);
+//             break;
+//         case 'hours':
+//             result = difference / (1000 * 60 * 60);
+//             break;
+//         case 'minutes':
+//             result = difference / (1000 * 60);
+//             break;
+//         case 'seconds':
+//             result = difference / 1000;
+//             break;
+//         default:
+//             return 'Invalid unit';
+//     }
+//
+//     return `${Math.floor(result)} ${unit}`;
+// }
 console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds')) // поверне '86400 seconds'
 console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days')) // поверне '362 days'
 
@@ -378,3 +378,115 @@ function filterUnique(array) {
 }
 
 console.log(filterUnique(userNames2)); // ['Петро', 'Емма', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
+
+// HW7 — Планування виконання, методи об'єктів, контекст виконання, методи call та apply
+// 1. Напишіть функцію detonatorTimer(delay) використовуючи setInterval
+function detonatorTimer(delay) {
+    const intervalId = setInterval(() => {
+        if (delay > 0) {
+            console.log(delay);
+            delay--;
+        } else {
+            console.log('BOOM!');
+            clearInterval(intervalId);
+        }
+    }, 1000);
+}
+detonatorTimer(3);
+
+// 2. Напишіть функцію detonatorTimer(delay) використовуючи вкладений setTimeout
+function detonatorTimerTimeout(delay) {
+    function countdown() {
+        if (delay > 0) {
+            console.log(delay);
+            delay--;
+            setTimeout(countdown, 1000);
+        } else {
+            console.log('BOOM!');
+        }
+    }
+
+    countdown();
+}
+detonatorTimerTimeout(3);
+
+// 3. Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи що ці властивості виводять.
+let me = {
+    name: 'Yana',
+    residency: 'Kyiv',
+    gender: 'female',
+    age: 27,
+    hobby: ['bouldering', 'tea ceremony'],
+    favoriteColor: 'violet-blue',
+    profession: 'frontend developer',
+    currentTask: 'learning JavaScript',
+    unpaidJob: 'tea master',
+    introduce() {
+        console.log(`Hello, my name is ${this.name} and I live in ${this.residency}.`);
+    },
+    futureGoals() {
+        console.log(`In the future, I want to become an expert in ${this.profession}.`);
+    },
+    currentActivity() {
+        console.log(`Right now, I'm focused on ${this.currentTask}.`);
+    },
+    describeUnpaidJob() {
+        console.log(`One of my passions is working as a ${this.unpaidJob}, even though it's not paid.`);
+    }
+}
+
+me.introduce();
+me.currentActivity();
+me.futureGoals();
+me.describeUnpaidJob();
+
+// 4. А тепер зробіть всі свої методи з попередньої задачі прив'язаними до контексту свого об'єкту
+
+const securedIntroduce = me.introduce.bind(me);
+const securedCurrentActivity = me.currentActivity.bind(me);
+const securedFutureGoals = me.futureGoals.bind(me);
+const securedDescribeUnpaidJob = me.describeUnpaidJob.bind(me);
+
+setTimeout(securedIntroduce, 1000);
+setTimeout(securedCurrentActivity, 2000);
+setTimeout(securedFutureGoals, 3000);
+setTimeout(securedDescribeUnpaidJob, 3000);
+
+// 5. Напишіть функцію-декоратор яка вповільнює виконання довільної функції на вказану кількість секунд.
+
+function durationBetweenDates(startDate = '01 Jan 2000', endDate = '01 Jan 2000', unit = 'days') {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const difference = Math.abs(end - start);
+
+    let result;
+    switch (unit) {
+        case 'days':
+            result = difference / (1000 * 60 * 60 * 24);
+            break;
+        case 'hours':
+            result = difference / (1000 * 60 * 60);
+            break;
+        case 'minutes':
+            result = difference / (1000 * 60);
+            break;
+        case 'seconds':
+            result = difference / 1000;
+            break;
+        default:
+            return 'Invalid unit';
+    }
+
+    console.log(`${Math.floor(result)} ${unit}`);
+}
+
+function slower(func, seconds) {
+    return function(...args) {
+        setTimeout(function () {
+            func(...args);
+        }, seconds * 1000)
+    };
+}
+
+let slowedSomeFunction = slower(durationBetweenDates, 5);
+slowedSomeFunction('02 Aug 1985', '03 Aug 1985', 'seconds')
