@@ -490,3 +490,16 @@ function slower(func, seconds) {
 
 let slowedSomeFunction = slower(durationBetweenDates, 5);
 slowedSomeFunction('02 Aug 1985', '03 Aug 1985', 'seconds')
+
+// HW8 — DOM дерево
+const navTitle = document.querySelector('#headerTwo');
+console.log(navTitle);
+
+const firstSection = document.getElementsByTagName('section')[0];
+console.log(firstSection);
+
+const list = Array.from(document.querySelectorAll('li')).find(el => el.textContent === 'Пункт 5');
+console.log(list);
+
+const hatredLevel = document.querySelector('.hatredLevelBlock');
+console.log(hatredLevel);
