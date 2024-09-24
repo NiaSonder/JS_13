@@ -1,0 +1,40 @@
+body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    transition: all 0.2s;
+}
+
+.container {
+    text-align: center;
+}
+
+#toggleButton {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "comic sans ms";
+    transition: all 0.2s;
+}
+
+
+#toggleButton:hover {
+    background-color: black;
+    color: white;
+}
+
+#statusMessage {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "comic sans ms";
+    color: black;
+    margin-top: 10px;
+}
