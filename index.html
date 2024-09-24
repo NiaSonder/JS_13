@@ -6,13 +6,28 @@
     <title>Title</title>
 </head>
 <body>
+<div class="wrapper">
+    <div class="create-task-block">
+        <form class="create-task-form">
+            <h3 class="task-title">Нове завдання</h3>
+            <div class="input-field">
+                <input type="text" name="task" class="task-input" />
+            </div>
+            <button type="submit">Додати завдання</button>
+        </form>
+    </div>
 
-<div class="container">
-    <button id="toggleButton" type="button">Turn off</button>
-    <p id="statusMessage"></p>
+    <div class="filter-task-block">
+        <h3 class="task-title">Список завдань</h3>
+        <div class="input-field">
+            <input type="text" name="filter" class="filter-input" placeholder="Пошук завдань" />
+        </div>
+        <ul class="collection"></ul>
+        <button class="clear-tasks">Видалити всі завдання</button>
+    </div>
 </div>
 
-<script src="app.js"></script>
-<script src="themeToggle.js"></script>
+<!--<script src="app.js"></script>-->
+<script src="todo.js"></script>
 </body>
 </html>
