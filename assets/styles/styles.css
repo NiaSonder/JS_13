@@ -48,11 +48,15 @@ h2 {
 }
 
 table {
+  min-width: 600px;
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   background: #333333;
   border: 3px solid #333333;
+}
+table#holidays-table {
+  display: none;
 }
 table th, table td {
   border: 2px solid #5500fd;
@@ -187,7 +191,7 @@ table caption {
 }
 .tab-content .input-container ul {
   padding-left: 15px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .tab-content .input-container ul li {
   margin-bottom: 10px;
@@ -234,7 +238,13 @@ table caption {
 
 .radio-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+}
+@media (min-width: 768px) {
+  .radio-group {
+    flex-wrap: nowrap;
+  }
 }
 
 .custom-radio {
@@ -400,6 +410,10 @@ table caption {
   50% {
     transform: translateY(-10px);
   }
+}
+.scroll {
+  width: 100%;
+  overflow: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */
