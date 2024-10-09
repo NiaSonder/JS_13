@@ -2,17 +2,194 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <title>App</title>
 </head>
 <body>
+<h1>Time & Holiday Finder</h1>
 
-<div class="container">
-    <button id="toggleButton" type="button">Turn off</button>
-    <p id="statusMessage"></p>
+<div class="content-center">
+    <div class="tab-container">
+        <button class="tab-button active" data-tab="timeTab">
+            Date Range
+        </button>
+        <button class="tab-button" data-tab="holidayTab">
+            Holiday Calendar
+        </button>
+    </div>
+
+    <div class="tab-content">
+        <div id="timeTab" class="tab active">
+            <h2>Date Range</h2>
+
+            <div class="form">
+                <div class="form-title">
+                    <h3>Step 1:</h3>
+                    <p>First, select a start date. Once the start date is chosen, you can either select an end date manually or choose a preset time interval (1 week or 1 month) to automatically calculate the end date.</p>
+                </div>
+
+                <div class="flex">
+                    <div class="input-container">
+                        <p class="label important">Start Date:</p>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="input-container">
+                        <p class="label important">End Date:</p>
+                        <input type="date" id="endDate" disabled>
+                    </div>
+                </div>
+
+                <p id="error-tab1" class="error"></p>
+
+                <div class="input-container">
+                    <p class="label">Time Interval Preset:</p>
+                    <div class="radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="preset" value="7" disabled>
+                            <span class="custom-radio-checkmark"></span>
+                            1 Week (7 days)
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="preset" value="30" disabled>
+                            <span class="custom-radio-checkmark"></span>
+                            1 Month (30 days)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form">
+                <div class="form-title">
+                    <h3>Step 2:</h3>
+
+                    <p>Choose how you want to calculate the days.</p>
+                </div>
+
+                <div class="option">
+                    <div class="input-container">
+                        <p class="label">Days to Count:</p>
+
+                        <div class="radio-group">
+                            <label class="custom-radio">
+                                <input type="radio" name="days" value="all" checked disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                All Days
+                            </label>
+
+                            <label class="custom-radio">
+                                <input type="radio" name="days" value="weekdays" disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Weekdays
+                            </label>
+
+                            <label class="custom-radio">
+                                <input type="radio" name="days" value="weekends" disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Weekends
+                            </label>
+                        </div>
+
+                        <ul>
+                            <li><b>All Days:</b> Includes all calendar days between the start and end dates.</li>
+                            <li><b>Weekdays:</b> Includes only Monday to Friday.</li>
+                            <li><b>Weekends:</b> Includes only Saturday and Sunday.</li>
+                        </ul>
+                    </div>
+                    <div class="input-container">
+                        <p class="label">Calculate in: <span>Select the unit of measurement for the result: <b>Days</b>, <b>Hours</b>, <b>Minutes</b>, or <b>Seconds</b> depending on how detailed you want the calculation.</span></p>
+                        <div class="radio-group">
+                            <label class="custom-radio">
+                                <input type="radio" name="calculation" value="days" checked disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Days
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="calculation" value="hours" disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Hours
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="calculation" value="minutes" disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Minutes
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="calculation" value="seconds" disabled>
+                                <span class="custom-radio-checkmark"></span>
+                                Seconds
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-btn">
+                <button id="calculateBtn">
+                    Calculate
+                </button>
+
+                <span id="loading" class="dot-animation" style="display:none;">
+                    <span class="dot-bounce"></span><span class="dot-bounce"></span><span class="dot-bounce"></span>
+                </span>
+            </div>
+
+            <table id="resultTable" style="display:none;">
+                <thead>
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Result</th>
+                </tr>
+                </thead>
+                <tbody id="resultBody"></tbody>
+            </table>
+        </div>
+
+        <div id="holidayTab" class="tab">
+            <h2>Holiday Calendar</h2>
+
+            <div class="flex">
+                <div class="input-container">
+                    <label for="country-select" class="label important">Country selection:
+                        <span>Start by selecting a country from the dropdown list. This will allow you to view the holidays specific to that country.</span>
+                    </label>
+                    <select id="country-select" class="choices">
+                        <option value="">Select a country</option>
+                    </select>
+                </div>
+
+                <div class="input-container">
+                    <label for="year-select" class="label important">Year selection:
+                        <span>Once you've selected a country, the year selection will be enabled. Choose the year for which you want to see the holidays.</span>
+                    </label>
+                    <select id="year-select" class="choices">
+                        <option value="">Select a year</option>
+                    </select>
+                </div>
+            </div>
+
+            <p id="error-tab2" class="error"></p>
+
+            <table id="holidays-table">
+                <thead>
+                    <tr>
+                        <th id="date-header">Date</th>
+                        <th>Holiday name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<script src="app.js"></script>
-<script src="themeToggle.js"></script>
+
+<div id="loader" class="loader"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
