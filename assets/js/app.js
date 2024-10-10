@@ -32,23 +32,23 @@ document.addEventListener('DOMContentLoaded', function () {
     startDateInput.addEventListener('change', handleStartDateChange);
     endDateInput.addEventListener('change', handleEndDateChange);
     calculateBtn.addEventListener('click', handleCalculation);
+    dateHeader.addEventListener('click', handleSorting);
 
     const currentYear = new Date().getFullYear();
 
     loadHistory();
 
-    dateHeader.addEventListener('click', () => {
-        sortHolidaysByDate(isSorting);
-        updateSortArrow(isSorting);
-        isSorting = !isSorting;
-    });
 
-    function updateSortArrow(sorting) {
-        if (sorting) {
+    function handleSorting() {
+        sortHolidaysByDate(isSorting);
+
+        if (isSorting) {
             sortArrow.textContent = '▲';
         } else {
             sortArrow.textContent = '▼';
         }
+
+        isSorting = !isSorting;
     }
 
     function sortHolidaysByDate(sorting) {
