@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorTab1 = document.getElementById('error-tab1');
     const errorTab2 = document.getElementById('error-tab2');
     const countrySelectElement = document.getElementById('country-select');
+    const dateHeader = document.getElementById('date-header');
+    const sortArrow = document.getElementById('sort-arrow');
 
     const presetRadios = document.querySelectorAll('input[name="preset"]');
     const daysRadios = document.querySelectorAll('input[name="days"]');
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let yearChoices = null;
     let selectedCountryName = '';
     let countriesLoaded = false;
+    let isSorting = true;
 
     startDateInput.addEventListener('change', handleStartDateChange);
     endDateInput.addEventListener('change', handleEndDateChange);
@@ -33,6 +36,39 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentYear = new Date().getFullYear();
 
     loadHistory();
+
+    dateHeader.addEventListener('click', () => {
+        sortHolidaysByDate(isSorting);
+        updateSortArrow(isSorting);
+        isSorting = !isSorting;
+    });
+
+    function updateSortArrow(sorting) {
+        if (sorting) {
+            sortArrow.textContent = '▲';
+        } else {
+            sortArrow.textContent = '▼';
+        }
+    }
+
+    function sortHolidaysByDate(sorting) {
+        const tbody = holidaysTable.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort((a, b) => {
+            const dateA = new Date(a.cells[0].textContent);
+            const dateB = new Date(b.cells[0].textContent);
+
+            if (sorting) {
+                return dateA - dateB;
+            } else {
+                return dateB - dateA;
+            }
+        });
+
+        tbody.innerHTML = '';
+        rows.forEach(row => tbody.appendChild(row));
+    }
 
     tabsBtn.forEach(button => {
         button.addEventListener('click', (event) => {
